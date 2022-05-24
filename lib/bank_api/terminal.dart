@@ -5,10 +5,10 @@ import '../responses.dart';
 
 extension TerminalAPI on PokepayAPI {
   Future<ServerKey> addTerminalPublicKey({
-    @required String key,
+    required String key,
   }) async {
     return await invokeMethod<ServerKey>(
-      (j) => ServerKey.fromJson(j),
+      (j) => ServerKey.fromJson(j!),
       'addTerminalPublicKey',
       {
         'env': this.env.index,
@@ -20,7 +20,7 @@ extension TerminalAPI on PokepayAPI {
 
   Future<Terminal> getTerminal() async {
     return await invokeMethod<Terminal>(
-      (j) => Terminal.fromJson(j),
+      (j) => Terminal.fromJson(j!),
       "getTerminal",
       {
         'env': this.env.index,
@@ -30,12 +30,12 @@ extension TerminalAPI on PokepayAPI {
   }
 
   Future<Terminal> updateTerminal({
-    @required String accountId,
-    @required String name,
-    String pushToken,
+    required String accountId,
+    required String name,
+    String? pushToken,
   }) async {
     return await invokeMethod<Terminal>(
-      (j) => Terminal.fromJson(j),
+      (j) => Terminal.fromJson(j!),
       'updateTerminal',
       {
         'env': this.env.index,

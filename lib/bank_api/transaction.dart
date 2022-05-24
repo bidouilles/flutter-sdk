@@ -8,13 +8,13 @@ import '../responses.dart';
 
 extension TransactionAPI on PokepayAPI {
   Future<UserTransaction> createUserTransactionWithBill({
-    @required String billId,
-    String accountId,
-    double amount,
-    String couponId,
+    required String? billId,
+    String? accountId,
+    double? amount,
+    String? couponId,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'createUserTransactionWithBill',
       {
         'env': this.env.index,
@@ -28,12 +28,12 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> createUserTransactionWithCashtray({
-    @required String cashtrayId,
-    String accountId,
-    String couponId,
+    required String cashtrayId,
+    String? accountId,
+    String? couponId,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'createUserTransactionWithCashtray',
       {
         'env': this.env.index,
@@ -46,11 +46,11 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> createUserTransactionWithCheck({
-    @required String checkId,
-    String accountId,
+    required String checkId,
+    String? accountId,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'createUserTransactionWithCheck',
       {
         'env': this.env.index,
@@ -62,13 +62,13 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> createUserTransactionWithCpm({
-    @required String cpmToken,
-    String accountId,
-    @required double amount,
-    List<Product> products,
+    required String cpmToken,
+    String? accountId,
+    required double amount,
+    List<Product>? products,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'createUserTransactionWithCpm',
       {
         'env': this.env.index,
@@ -82,12 +82,12 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<JwtResult> createUserTransactionWithJwt({
-    @required String data,
-    String accountId,
-    String couponId,
+    required String data,
+    String? accountId,
+    String? couponId,
   }) async {
     return await invokeMethod<JwtResult>(
-      (j) => JwtResult.fromJson(j),
+      (j) => JwtResult.fromJson(j!),
       'createUserTransactionWithJwt',
       {
         'env': this.env.index,
@@ -100,10 +100,10 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> getUserTransaction({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'getUserTransaction',
       {
         'env': this.env.index,
@@ -114,7 +114,7 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<NoContent> cancelUserTransaction({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -128,14 +128,14 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> sendToAccount({
-    @required String accountId,
-    @required double amount,
-    String receiverTerminalId,
-    String senderAccountId,
-    String description,
+    required String accountId,
+    required double amount,
+    String? receiverTerminalId,
+    String? senderAccountId,
+    String? description,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'sendToAccount',
       {
         'env': this.env.index,
@@ -150,14 +150,14 @@ extension TransactionAPI on PokepayAPI {
   }
 
   Future<UserTransaction> sendToUser({
-    @required String userId,
-    @required double amount,
-    String receiverTerminalId,
-    String senderAccountId,
-    String description,
+    required String userId,
+    required double amount,
+    String? receiverTerminalId,
+    String? senderAccountId,
+    String? description,
   }) async {
     return await invokeMethod<UserTransaction>(
-      (j) => UserTransaction.fromJson(j),
+      (j) => UserTransaction.fromJson(j!),
       'sendToUser',
       {
         'env': this.env.index,

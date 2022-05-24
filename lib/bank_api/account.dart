@@ -14,11 +14,11 @@ enum CpmTokenScope {
 
 extension AccountAPI on PokepayAPI {
   Future<Account> createAccount({
-    String name,
-    String privateMoneyId,
+    String? name,
+    String? privateMoneyId,
   }) async {
     return await invokeMethod<Account>(
-      (j) => Account.fromJson(j),
+      (j) => Account.fromJson(j!),
       'createAccount',
       {
         'env': this.env.index,
@@ -30,13 +30,13 @@ extension AccountAPI on PokepayAPI {
   }
 
   Future<AccountCpmToken> createAccountCpmToken({
-    @required String accountId,
-    @required CpmTokenScope scopes,
-    int expiresIn,
-    Map<String, String> metadata,
+    required String accountId,
+    required CpmTokenScope scopes,
+    int? expiresIn,
+    Map<String, String>? metadata,
   }) async {
     return await invokeMethod<AccountCpmToken>(
-      (j) => AccountCpmToken.fromJson(j),
+      (j) => AccountCpmToken.fromJson(j!),
       'createAccountCpmToken',
       {
         'env': this.env.index,
@@ -50,10 +50,10 @@ extension AccountAPI on PokepayAPI {
   }
 
   Future<Account> getAccount({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<Account>(
-      (j) => Account.fromJson(j),
+      (j) => Account.fromJson(j!),
       'getAccount',
       {
         'env': this.env.index,
@@ -64,13 +64,13 @@ extension AccountAPI on PokepayAPI {
   }
 
   Future<PaginatedAccountBalances> getAccountBalances({
-    @required String id,
-    String before,
-    String after,
-    int perPage,
+    required String id,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedAccountBalances>(
-      (j) => PaginatedAccountBalances.fromJson(j),
+      (j) => PaginatedAccountBalances.fromJson(j!),
       'getAccountBalances',
       {
         'env': this.env.index,
@@ -83,14 +83,14 @@ extension AccountAPI on PokepayAPI {
     );
   }
   Future<PaginatedCoupons> getAccountCoupons({
-    @required String accountId,
-    bool isAvailable,
-    String before,
-    String after,
-    int perPage,
+    required String accountId,
+    bool? isAvailable,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedCoupons>(
-          (j) => PaginatedCoupons.fromJson(j),
+          (j) => PaginatedCoupons.fromJson(j!),
       'getAccountCoupons',
       {
         'env': this.env.index,
@@ -105,11 +105,11 @@ extension AccountAPI on PokepayAPI {
   }
 
   Future<CouponDetail> getAccountCouponDetail({
-    @required String accountId,
-    @required String couponId,
+    required String accountId,
+    required String couponId,
   }) async {
     return await invokeMethod<CouponDetail>(
-          (j) => CouponDetail.fromJson(j),
+          (j) => CouponDetail.fromJson(j!),
       'getAccountCouponDetail',
       {
         'env': this.env.index,
@@ -120,13 +120,13 @@ extension AccountAPI on PokepayAPI {
     );
   }
   Future<PaginatedTransactions> getAccounTransactions({
-    @required String id,
-    String before,
-    String after,
-    int perPage,
+    required String id,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedTransactions>(
-      (j) => PaginatedTransactions.fromJson(j),
+      (j) => PaginatedTransactions.fromJson(j!),
       'getAccountTransactions',
       {
         'env': this.env.index,
@@ -140,12 +140,12 @@ extension AccountAPI on PokepayAPI {
   }
 
   Future<CouponDetail> patchAccountCouponDetail({
-    @required String accountId,
-    @required String couponId,
-    @required bool isReceieved,
+    required String accountId,
+    required String couponId,
+    required bool isReceieved,
   }) async {
     return await invokeMethod<CouponDetail>(
-          (j) => CouponDetail.fromJson(j),
+          (j) => CouponDetail.fromJson(j!),
       'patchAccountCouponDetail',
       {
         'env': this.env.index,

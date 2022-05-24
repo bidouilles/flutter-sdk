@@ -6,8 +6,7 @@ part 'server_key.g.dart';
 
 @JsonSerializable()
 class ServerKey extends Response {
-  @JsonKey(nullable: false)
-  final String serverKey;
+  final String? serverKey;
 
   ServerKey({
     this.serverKey,

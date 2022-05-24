@@ -6,14 +6,14 @@ import '../responses.dart';
 
 extension PrivateMoney on PokepayAPI {
   Future<PaginatedPrivateMoneys> searchPrivateMoneys({
-    String name,
+    String? name,
     bool includeExclusive = false,
-    String before,
-    String after,
-    int perPage,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedPrivateMoneys>(
-      (j) => PaginatedPrivateMoneys.fromJson(j),
+      (j) => PaginatedPrivateMoneys.fromJson(j!),
       'searchPrivateMoneys',
       {
         'env': this.env.index,
@@ -28,13 +28,13 @@ extension PrivateMoney on PokepayAPI {
   }
 
   Future<PaginatedCoupons> getPrivateMoneyCoupons({
-    @required String privateMoneyId,
-    String before,
-    String after,
-    int perPage,
+    required String privateMoneyId,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedCoupons>(
-          (j) => PaginatedCoupons.fromJson(j),
+          (j) => PaginatedCoupons.fromJson(j!),
       'getPrivateMoneyCoupons',
       {
         'env': this.env.index,

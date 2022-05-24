@@ -8,8 +8,8 @@ import '../responses/user.dart';
 
 extension UserAPI on PokepayAPI {
   Future<NoContent> deleteUserEmail({
-    @required String id,
-    @required String email,
+    required String id,
+    required String email,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -24,13 +24,13 @@ extension UserAPI on PokepayAPI {
   }
 
   Future<PaginatedAccounts> getUserAccounts({
-    @required String id,
-    String before,
-    String after,
-    int perPage,
+    required String id,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedAccounts>(
-      (j) => PaginatedAccounts.fromJson(j),
+      (j) => PaginatedAccounts.fromJson(j!),
       'getUserAccounts',
       {
         'env': this.env.index,
@@ -44,13 +44,13 @@ extension UserAPI on PokepayAPI {
   }
 
   Future<PaginatedTransactions> getUserTransactions({
-    @required String id,
-    String before,
-    String after,
-    int perPage,
+    required String id,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedTransactions>(
-      (j) => PaginatedTransactions.fromJson(j),
+      (j) => PaginatedTransactions.fromJson(j!),
       'getUserTransactions',
       {
         'env': this.env.index,
@@ -64,7 +64,7 @@ extension UserAPI on PokepayAPI {
   }
 
   Future<NoContent> registerUserEmail({
-    @required String token,
+    required String token,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -78,8 +78,8 @@ extension UserAPI on PokepayAPI {
   }
 
   Future<NoContent> sendConfirmationEmail({
-    @required String id,
-    @required String email,
+    required String id,
+    required String email,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -94,11 +94,11 @@ extension UserAPI on PokepayAPI {
   }
 
   Future<User> updateUser({
-    @required String id,
-    String name,
+    required String id,
+    String? name,
   }) async {
     return await invokeMethod<User>(
-      (j) => User.fromJson(j),
+      (j) => User.fromJson(j!),
       'updateUser',
       {
         'env': this.env.index,

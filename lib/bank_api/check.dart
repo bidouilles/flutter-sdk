@@ -8,19 +8,19 @@ var datetimeConv = CustomDateTimeConverter();
 
 extension CheckAPI on PokepayAPI {
   Future<Check> createCheck({
-    double amount,
-    double moneyAmount,
-    double pointAmount,
-    String accountId,
-    String description,
+    double? amount,
+    double? moneyAmount,
+    double? pointAmount,
+    String? accountId,
+    String? description,
     bool isOnetime = true, // check should be onetime default
-    int usageLimit,
-    DateTime expiresAt,
-    DateTime pointExpiresAt,
-    int pointExpiresInDays,
+    int? usageLimit,
+    DateTime? expiresAt,
+    DateTime? pointExpiresAt,
+    int? pointExpiresInDays,
   }) async {
     return await invokeMethod<Check>(
-      (j) => Check.fromJson(j),
+      (j) => Check.fromJson(j!),
       'createCheck',
       {
         'env': this.env.index,
@@ -40,7 +40,7 @@ extension CheckAPI on PokepayAPI {
   }
 
   Future<NoContent> deleteCheck({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -54,10 +54,10 @@ extension CheckAPI on PokepayAPI {
   }
 
   Future<Check> getCheck({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<Check>(
-      (j) => Check.fromJson(j),
+      (j) => Check.fromJson(j!),
       'getCheck',
       {
         'env': this.env.index,
@@ -68,15 +68,15 @@ extension CheckAPI on PokepayAPI {
   }
 
   Future<Check> updateCheck({
-    @required String id,
-    double amount,
-    String description,
-    DateTime expiresAt,
-    DateTime pointExpiresAt,
-    int pointExpiresInDays,
+    required String id,
+    double? amount,
+    String? description,
+    DateTime? expiresAt,
+    DateTime? pointExpiresAt,
+    int? pointExpiresInDays,
   }) async {
     return await invokeMethod<Check>(
-      (j) => Check.fromJson(j),
+      (j) => Check.fromJson(j!),
       'updateCheck',
       {
         'env': this.env.index,

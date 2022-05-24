@@ -8,14 +8,14 @@ import '../responses.dart';
 
 extension BillAPI on PokepayAPI {
   Future<Bill> createBill({
-    double amount,
-    String accountId,
-    String description,
+    double? amount,
+    String? accountId,
+    String? description,
     bool isOnetime = false,
-    List<Product> products,
+    List<Product>? products,
   }) async {
     return await invokeMethod<Bill>(
-      (j) => Bill.fromJson(j),
+      (j) => Bill.fromJson(j!),
       'createBill',
       {
         'env': this.env.index,
@@ -30,7 +30,7 @@ extension BillAPI on PokepayAPI {
   }
 
   Future<NoContent> deleteBill({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<NoContent>(
       (j) => NoContent.fromJson(j),
@@ -44,10 +44,10 @@ extension BillAPI on PokepayAPI {
   }
 
   Future<Bill> getBill({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<Bill>(
-      (j) => Bill.fromJson(j),
+      (j) => Bill.fromJson(j!),
       'getBill',
       {
         'env': this.env.index,
@@ -58,12 +58,12 @@ extension BillAPI on PokepayAPI {
   }
 
   Future<Bill> updateBill({
-    @required String id,
-    double amount,
-    String description,
+    required String id,
+    double? amount,
+    String? description,
   }) async {
     return await invokeMethod<Bill>(
-      (j) => Bill.fromJson(j),
+      (j) => Bill.fromJson(j!),
       'updateBill',
       {
         'env': this.env.index,

@@ -7,16 +7,14 @@ part 'coupon_detail.g.dart';
 @JsonSerializable()
 class CouponDetail extends Coupon {
 
-  final String receivedAt;
-  @JsonKey(nullable: false)
+  final String? receivedAt;
   final int usageCount;
-  @JsonKey(nullable: false)
   final List<User> availableShops;
 
   CouponDetail({
     this.receivedAt,
-    this.usageCount,
-    this.availableShops,
+    required this.usageCount,
+    required this.availableShops,
   });
 
   factory CouponDetail.fromJson(Map<String, dynamic> json) => _$CouponDetailFromJson(json);

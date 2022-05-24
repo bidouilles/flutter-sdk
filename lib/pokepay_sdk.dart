@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:meta/meta.dart';
 
 import 'bank_api/terminal.dart';
 import 'bank_api/transaction.dart';
@@ -61,7 +60,7 @@ var logger = (() {
 })();
 
 void setLogLevel(LogLevel lev) {
-  Level l;
+  Level? l;
   switch (lev) {
     case LogLevel.verbose:
       l = Level.verbose;
@@ -97,25 +96,25 @@ void setLogLevel(LogLevel lev) {
 
 const MethodChannel channel = const MethodChannel('jp.pokepay/pokepay_sdk');
 
-Future<T> invokeMethod<T>(T factory(Map<String, dynamic> data),
+Future<T> invokeMethod<T>(T factory(Map<String, dynamic>? data),
     String methodName, Map<String, dynamic> args) async {
   try {
     logger.d("methodName: " + methodName + " args: " + args.toString());
-    final String json = await channel.invokeMethod(methodName, args);
+    final String json = await (channel.invokeMethod(methodName, args) as FutureOr<String>);
     logger.d("json: " + json);
     return factory(jsonDecode(json));
   } on PlatformException catch (e) {
     final String code = e.code;
-    final String message = e.message;
+    final String? message = e.message;
     if (code == "APIRequestError") {
-      final APIRequestError err = APIRequestError.fromJson(jsonDecode(message));
+      final APIRequestError err = APIRequestError.fromJson(jsonDecode(message!));
       throw err;
     } else if (code == "OAuthRequestError") {
       final OAuthRequestError err =
-          OAuthRequestError.fromJson(jsonDecode(message));
+          OAuthRequestError.fromJson(jsonDecode(message!));
       throw err;
     } else {
-      final ProcessingError err = ProcessingError.fromJson(jsonDecode(message));
+      final ProcessingError err = ProcessingError.fromJson(jsonDecode(message!));
       throw err;
     }
   }
@@ -129,13 +128,13 @@ const Map<APIEnv, String> envNameMap = {
 };
 
 String getWebBaseURL(APIEnv env) {
-  String name = envNameMap[env];
+  String name = envNameMap[env]!;
   String suffix = ((name.length > 0) ? ("-" + name) : "");
   return "https://www" + suffix + ".pokepay.jp";
 }
 
 String getAPIBaseURL(APIEnv env) {
-  String name = envNameMap[env];
+  String name = envNameMap[env]!;
   String suffix = ((name.length > 0) ? ("-" + name) : "");
   return "https://api" + suffix + ".pokepay.jp";
 }
@@ -144,12 +143,12 @@ class PokepayAPI {
   final APIEnv env;
   final String accessToken;
   PokepayAPI({
-    @required this.accessToken,
-    @required this.env,
+    required this.accessToken,
+    required this.env,
   });
 }
 
-String parseAsPokeregiToken(String token) {
+String? parseAsPokeregiToken(String token) {
   // * {25 ALNUM} - (Pokeregi_V1 OfflineMode QR)
   final V1_QR_REG = RegExp(r'^([0-9A-Z]{25})$');
   // * https://www.pokepay.jp/pd?={25 ALNUM} - (Pokeregi_V1 OfflineMode NFC)
@@ -171,7 +170,7 @@ class PokepayClient {
   PokepayAPI api;
 
   PokepayClient({
-    @required String accessToken,
+    required String accessToken,
     APIEnv env = APIEnv.PRODUCTION,
   }) : this.api = PokepayAPI(
           accessToken: accessToken,
@@ -197,7 +196,7 @@ class PokepayClient {
       final cpmToken = await api.getCpmToken(cpmToken: token);
       return TokenInfo(type: TokenType.CPM, token: cpmToken);
     }else{
-      String key = parseAsPokeregiToken(token);
+      String key = parseAsPokeregiToken(token)!;
       if (key.length > 0) {
         return TokenInfo(type:
         TokenType.PAYREGI,
@@ -209,8 +208,8 @@ class PokepayClient {
   }
 
   Future<UserTransaction> pay({
-    @required Bill bill,
-    double amount,
+    required Bill bill,
+    double? amount,
   }) async {
     if (bill.amount != null && bill.amount != 0) {
       if (amount != 0) {
@@ -227,32 +226,32 @@ class PokepayClient {
   }
 
   Future<UserTransaction> topup({
-    @required Check check,
-    String accountId
+    required Check check,
+    String? accountId
   }) async {
     return await this.api.createUserTransactionWithCheck(checkId: 'check.id', accountId: accountId);
   }
 
   Future<UserTransaction> invokeToken({
-    @required String token,
+    required String token,
   }) async {
-    String json = await channel.invokeMethod('scanToken', {
+    String json = await (channel.invokeMethod('scanToken', {
       'env': envToInt(this.api.env),
       'accessToken': this.api.accessToken,
       'token': token,
-    });
+    }) as FutureOr<String>);
     return UserTransaction.fromJson(jsonDecode(json));
   }
 
-  Future<String> createToken({
-    @required bool isMerchant,
-    @required double amount,
-    @required String description,
-    int expiresIn,
-    String accountId,
-    List<Product> products,
+  Future<String?> createToken({
+    required bool isMerchant,
+    required double amount,
+    required String description,
+    int? expiresIn,
+    String? accountId,
+    List<Product>? products,
   }) async {
-    String json = await channel.invokeMethod('createToken', {
+    String? json = await channel.invokeMethod('createToken', {
       'env': envToInt(this.api.env),
       'accessToken': this.api.accessToken,
       'isMerchant': isMerchant,
@@ -267,13 +266,13 @@ class PokepayClient {
   }
 
   Future<UserTransaction> scanToken({
-    @required String scanToken,
-    double amount,
-    String accountId,
-    List<Product> products,
-    String couponId,
+    required String scanToken,
+    double? amount,
+    String? accountId,
+    List<Product>? products,
+    String? couponId,
   }) async {
-    String json = await channel.invokeMethod('scanToken',{
+    String json = await (channel.invokeMethod('scanToken',{
       'env': envToInt(this.api.env),
       'accessToken': this.api.accessToken,
       'scanToken': scanToken,
@@ -281,7 +280,7 @@ class PokepayClient {
       'accountId': accountId,
       'products': products,
       'couponId': couponId,
-    });
+    }) as FutureOr<String>);
 
     return UserTransaction.fromJson(jsonDecode(json));
   }
@@ -294,8 +293,8 @@ class PokepayOAuthClient {
 
   PokepayOAuthClient({
     this.env = APIEnv.PRODUCTION,
-    @required this.clientId,
-    @required this.clientSecret,
+    required this.clientId,
+    required this.clientSecret,
   });
 
   String getAuthorizationUrl({String contact = ""}) {
@@ -311,12 +310,12 @@ class PokepayOAuthClient {
   }
 
   Future<AccessToken> getAccessToken(String code) async {
-    final String json = await channel.invokeMethod('exchangeAuthCode', {
+    final String json = await (channel.invokeMethod('exchangeAuthCode', {
       'env' : envToInt(this.env),
       'code': code,
       'clientId': this.clientId,
       'clientSecret': this.clientSecret,
-    });
+    }) as FutureOr<String>);
     return AccessToken.fromJson(jsonDecode(json));
   }
 }

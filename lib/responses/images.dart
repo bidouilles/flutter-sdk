@@ -6,11 +6,11 @@ part 'images.g.dart';
 
 @JsonSerializable()
 class Images extends Response {
-  final String card;
+  final String? card;
   @JsonKey(name: "300x300")
-  final String res300;
+  final String? res300;
   @JsonKey(name: "600x600")
-  final String res600;
+  final String? res600;
 
   Images({
     this.card,

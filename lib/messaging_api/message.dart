@@ -1,14 +1,12 @@
-import 'package:meta/meta.dart';
-
 import '../pokepay_sdk.dart';
 import '../responses.dart';
 
 extension MessageAPI on PokepayAPI {
   Future<Message> getMessage({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<Message>(
-      (j) => Message.fromJson(j),
+      (j) => Message.fromJson(j!),
       'getMessage',
       {
         'env': this.env.index,
@@ -20,7 +18,7 @@ extension MessageAPI on PokepayAPI {
 
   Future<MessageUnreadCount> getMessageUnreadCount() async {
     return await invokeMethod<MessageUnreadCount>(
-      (j) => MessageUnreadCount.fromJson(j),
+      (j) => MessageUnreadCount.fromJson(j!),
       'getMessageUnreadCount',
       {
         'env': this.env.index,
@@ -30,12 +28,12 @@ extension MessageAPI on PokepayAPI {
   }
 
   Future<PaginatedMessages> listMessages({
-    String before,
-    String after,
-    int perPage,
+    String? before,
+    String? after,
+    int? perPage,
   }) async {
     return await invokeMethod<PaginatedMessages>(
-      (j) => PaginatedMessages.fromJson(j),
+      (j) => PaginatedMessages.fromJson(j!),
       'listMessages',
       {
         'env': this.env.index,
@@ -48,10 +46,10 @@ extension MessageAPI on PokepayAPI {
   }
 
   Future<MessageAttachment> receiveMessageAttachment({
-    @required String id,
+    required String id,
   }) async {
     return await invokeMethod<MessageAttachment>(
-      (j) => MessageAttachment.fromJson(j),
+      (j) => MessageAttachment.fromJson(j!),
       'receiveMessageAttachment',
       {
         'env': this.env.index,
@@ -62,14 +60,14 @@ extension MessageAPI on PokepayAPI {
   }
 
   Future<Message> sendMessage({
-    @required String toUserId,
-    double amount,
-    @required String subject,
-    @required String body,
-    String fromAccountId,
+    required String toUserId,
+    double? amount,
+    required String subject,
+    required String body,
+    String? fromAccountId,
   }) async {
     return await invokeMethod<Message>(
-      (j) => Message.fromJson(j),
+      (j) => Message.fromJson(j!),
       'sendMessage',
       {
         'env': this.env.index,

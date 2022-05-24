@@ -6,8 +6,7 @@ part 'message_unread_count.g.dart';
 
 @JsonSerializable()
 class MessageUnreadCount extends Response {
-  @JsonKey(nullable: false)
-  final int count;
+  final int? count;
 
   MessageUnreadCount({
     this.count = 0,

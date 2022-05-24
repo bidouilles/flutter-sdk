@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 
 import '../pokepay_sdk.dart';
 import '../responses.dart';
@@ -11,13 +10,13 @@ class PokepayOAuthAPI {
   });
 
   Future<AccessToken> exchangeAuthCode({
-    @required String code,
-    @required String clientId,
-    @required String clientSecret,
+    required String code,
+    required String clientId,
+    required String clientSecret,
     String grantType = "authorization_code",
   }) async {
     return await invokeMethod<AccessToken>(
-      (j) => AccessToken.fromJson(j),
+      (j) => AccessToken.fromJson(j!),
       'exchangeAuthCode',
       {
         'env': this.env.index,
@@ -30,13 +29,13 @@ class PokepayOAuthAPI {
   }
 
   Future<AccessToken> refreshAccessToken({
-    @required String refreshToken,
-    @required String clientId,
-    @required String clientSecret,
+    required String refreshToken,
+    required String clientId,
+    required String clientSecret,
     String grantType = "refresh_token",
   }) async {
     return await invokeMethod<AccessToken>(
-      (j) => AccessToken.fromJson(j),
+      (j) => AccessToken.fromJson(j!),
       'refreshAccessToken',
       {
         'env': this.env.index,

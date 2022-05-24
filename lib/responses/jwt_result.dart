@@ -6,8 +6,8 @@ part 'jwt_result.g.dart';
 
 @JsonSerializable()
 class JwtResult extends Response {
-  final String data;
-  final String error;
+  final String? data;
+  final String? error;
 
   JwtResult({
     this.data,
